@@ -9,13 +9,13 @@ public class Coordinates {
     public double getX(){
         return x;
     }
-    public void setX(){
+    public void setX(double x){
         this.x = x;
     }
     public double getY(){
         return y;
     }
-    public void setY(){
+    public void setY(Float y){
         this.y = y;
     }
    /* @Override

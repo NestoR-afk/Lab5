@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class help {
+public class help implements Command{
     String description = "help : вывести справку по доступным командам";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

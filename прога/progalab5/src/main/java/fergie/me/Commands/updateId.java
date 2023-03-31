@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class updateId {
+public class updateId implements Command {
     String description = "update id {element} : обновить значение элемента коллекции, id которого равен заданному";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

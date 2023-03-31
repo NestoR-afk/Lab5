@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class sum_of_oscars_count {
+public class sum_of_oscars_count implements Command {
     String description = "sum_of_oscars_count : вывести сумму значений поля oscarsCount для всех элементов коллекции";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

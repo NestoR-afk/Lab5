@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class remove_greater {
+public class remove_greater implements Command {
     String description = "remove_greater {element} : удалить из коллекции все элементы, превышающие заданный";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

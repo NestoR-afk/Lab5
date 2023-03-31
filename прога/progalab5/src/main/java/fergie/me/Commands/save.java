@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class save {
+public class save implements Command{
     String description = "save : сохранить коллекцию в файл";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

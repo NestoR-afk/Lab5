@@ -1,9 +1,11 @@
 package fergie.me.Commands;
 
-public class exit {
+public class exit implements Command {
     String description = "exit : завершить программу (без сохранения в файл)";
-    void execute(){};
-    String getDescription(){
+    public void execute() {
+
+    };
+    public String getDescription(){
         return description;
     };
 }

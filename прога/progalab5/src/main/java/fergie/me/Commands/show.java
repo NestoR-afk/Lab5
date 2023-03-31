@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class show {
+public class show implements Command {
     String description = "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class removeById {
+public class removeById implements Command{
     String description = "remove_by_id id : удалить элемент из коллекции по его id";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     }
 }

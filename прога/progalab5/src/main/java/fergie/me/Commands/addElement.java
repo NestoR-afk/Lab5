@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class addElement {
+public class addElement implements Command{
     String description = "add {element} : добавить новый элемент в коллекцию";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     };
 }

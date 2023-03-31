@@ -1,9 +1,9 @@
 package fergie.me.Commands;
 
-public class clear{
+public class clear implements Command {
     String description = "clear: очистить коллекцию";
-    void execute(){};
-    String getDescription(){
+    public void execute(){};
+    public String getDescription(){
         return description;
     };
 }
