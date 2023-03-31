@@ -1,7 +1,9 @@
 package fergie.me;
 
 import fergie.me.Data.Coordinates;
+import fergie.me.Data.Country;
 import fergie.me.Data.Movie;
+import fergie.me.Data.MovieGenre;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,12 +34,25 @@ public class Parser {
 
             if (s.equals("Coordinates>")) {
                 Coordinates coordinates = readCoordinates();
+                movie.setCoordinates(coordinates);
             }
 
             Matcher matcher = pattern.matcher(s);
             if (matcher.matches()) {
                 String fieldName = matcher.group(1);
                 String fieldValue = matcher.group(2);
+                if (fieldName.equalsIgnoreCase("Name")) {
+                    movie.setName(fieldValue);
+                } else if (fieldName.equals("x")) {
+//                    try {
+//                        Double.parseDouble(fieldValue);
+//                    } catch (NumberFormatException e) {
+//                        throw e;
+//                    }
+                } else if (fieldName.equals("Country")) {
+                    MovieGenre.valueOf("DRAMA");
+                    movie.setGenre(MovieGenre.DRAMA);
+                }
             }
 
         }

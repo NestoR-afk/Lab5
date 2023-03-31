@@ -20,11 +20,26 @@ public class Main {
             collectionManager.addAll(movies);
         } catch (FileNotFoundException e) {
             System.out.println("Файл" + fileName + "не найден");
+        } catch (NumberFormatException e) {
+            System.out.println("Н");
         }
 
         String s;
-        while ((s=scanner.nextLine()) != "exit") {
-            commandManager.commads.get(s).execute();
+        while (true) {
+            s  = scanner.nextLine();
+
+            if (s.equals("exit")) {
+                break;
+            }
+
+            commandManager.commands.get(s).execute();
+
+//            String[] arguments = s.split(" ");
+//            if (arguments.length == 1) {
+//                commandManager.commads.get(s).execute("");
+//            } else {
+//                commandManager.commads.get(s).execute(args[1]);
+//            }
         }
 
 

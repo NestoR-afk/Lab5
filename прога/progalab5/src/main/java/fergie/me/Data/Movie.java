@@ -75,4 +75,5 @@ public class Movie {
         this.operator = operator;
     }
     //переопределить equals hashcode и toString для movie
+
 }

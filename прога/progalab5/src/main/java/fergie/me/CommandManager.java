@@ -9,25 +9,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandManager {
-    private Command add_if_min;
-    private Command addElement;
-    private Command clear;
-    private Command add;
-
-    public Map<String, Command> commads = new HashMap<>() {
-        {"add", add},
-        {"add_if_min", add_if_min},
-
-    }
-
     private CollectionManager collectionManager;
+
+    public Map<String, Command> commands = new HashMap<>();
+
 
     public CommandManager(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
-        add_if_min = new add_if_min();
-        addElement = new addElement();
-        clear = new clear();
+
+        Command addElement = new addElement(collectionManager);
+
     }
+
+    public void help() {
+
+        for( Command cmd: commands.values()) {
+            System.out.println(cmd.getDescription() + "\\n");
+        }
+    }
+
+
 
 
 
