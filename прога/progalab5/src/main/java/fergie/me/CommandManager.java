@@ -1,12 +1,11 @@
 package fergie.me;
 
 import fergie.me.Commands.Command;
-import fergie.me.Commands.addElement;
-import fergie.me.Commands.add_if_min;
-import fergie.me.Commands.clear;
+import fergie.me.Commands.AddElement;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class CommandManager {
     private CollectionManager collectionManager;
@@ -14,19 +13,19 @@ public class CommandManager {
     public Map<String, Command> commands = new HashMap<>();
 
 
-    public CommandManager(CollectionManager collectionManager) {
+    public CommandManager(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
 
-        Command addElement = new addElement(collectionManager);
+        Command addElement = new AddElement(collectionManager, scanner);
 
     }
 
-    public void help() {
-
-        for( Command cmd: commands.values()) {
-            System.out.println(cmd.getDescription() + "\\n");
-        }
-    }
+//    public static void help() {
+//
+//        for( Command cmd: commands.values()) {
+//            System.out.println(cmd.getDescription() + "\\n");
+//        }
+//    }
 
 
 

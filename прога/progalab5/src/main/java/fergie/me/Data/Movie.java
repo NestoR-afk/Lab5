@@ -1,5 +1,10 @@
 package fergie.me.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Movie {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -75,5 +80,64 @@ public class Movie {
         this.operator = operator;
     }
     //переопределить equals hashcode и toString для movie
+    @Override
+    public String toString(){
+        return "Название: " + this.name + " | id: " + this.id + " ";
+    }
+    public static Movie createNewMovie(Scanner scanner){
+        Movie movie = new Movie();
+        { //movie: movieGenre, MpaaRating, coordinates
+            movie.setCreationDate(LocalDate.from(LocalDateTime.now()));
 
+            System.out.println("Введите название фильма:");
+            movie.setName(scanner.nextLine());
+
+            System.out.println("Введите количество оскаров:");
+            movie.setOscarsCountscarsCount(scanner.nextLong());
+
+            System.out.println("Выберите из списка MpaaRating и введите его:"
+                    + "\\n" + Arrays.toString(MpaaRating.values()));
+            movie.setMpaaRating(MpaaRating.valueOf(scanner.nextLine()));
+
+            System.out.println("Выберите жанр из списка: ");
+            System.out.println(Arrays.toString(Country.values()));
+            movie.setGenre(MovieGenre.valueOf(scanner.nextLine()));
+            //coordinates
+            {
+                Coordinates coordinates = new Coordinates();
+                System.out.println("Введите координаты x, y: ");
+                int x = scanner.nextInt();
+                float y = scanner.nextFloat();
+                coordinates.setX(x);
+                coordinates.setY(y);
+                movie.setCoordinates(coordinates);
+            }
+
+            { //person
+                Person operator = new Person();
+                System.out.println("Введите имя режиссера:");
+                operator.setName(scanner.nextLine());
+                //color
+                System.out.println("Выберите цвет глаз режиссера из предложенных и введите его: ");
+                System.out.println(Arrays.toString(Color.values()));
+                operator.setEyeColor(Color.valueOf(scanner.nextLine()));
+                //country
+                System.out.println("Введите национальность оператора: ");
+                System.out.println(Arrays.toString(Country.values()));
+                operator.setNationality(Country.valueOf(scanner.nextLine()));
+
+                { //location + coordinates
+                    Location location = new Location();
+                    System.out.println("Введите координаты (x,y,z) оператора в формате 0.0 (КАКИЕ ЕЩЕ КООРДИНАТЫ ОПЕРАТОРА?????????): ");
+                    location.setX(scanner.nextFloat());
+                    location.setY(scanner.nextFloat());
+                    location.setZ(scanner.nextLong());
+                    location.setName(scanner.nextLine());
+                    operator.setLocation(location);
+                }
+                movie.setOperator(operator);
+            }
+        }
+        return movie;
+    }
 }

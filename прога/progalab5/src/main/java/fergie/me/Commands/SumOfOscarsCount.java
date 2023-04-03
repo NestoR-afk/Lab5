@@ -1,0 +1,19 @@
+package fergie.me.Commands;
+
+
+import fergie.me.CollectionManager;
+
+public class SumOfOscarsCount extends CollectionCommand {
+    String description = "sum_of_oscars_count : вывести сумму значений поля oscarsCount для всех элементов коллекции";
+
+    public SumOfOscarsCount(CollectionManager collectionManager) {
+        super(collectionManager);
+    }
+
+    public void execute(){
+        collectionManager.SumOfOscarsCount();
+    };
+    public String getDescription(){
+        return description;
+    }
+}
