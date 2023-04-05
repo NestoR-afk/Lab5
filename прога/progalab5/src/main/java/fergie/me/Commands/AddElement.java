@@ -3,10 +3,7 @@ package fergie.me.Commands;
 import fergie.me.CollectionManager;
 import fergie.me.Data.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class AddElement extends CollectionCommand implements Command {

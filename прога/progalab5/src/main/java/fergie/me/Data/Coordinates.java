@@ -1,5 +1,6 @@
 package fergie.me.Data;
 
+import javax.management.InvalidAttributeValueException;
 import java.util.Objects;
 
 public class Coordinates {
@@ -15,7 +16,9 @@ public class Coordinates {
     public double getY(){
         return y;
     }
-    public void setY(Float y){
+    public void setY(Float y) throws InvalidAttributeValueException{
+        if (y == null)
+            throw new InvalidAttributeValueException("Значение поля Y не может быть null");
         this.y = y;
     }
    /* @Override

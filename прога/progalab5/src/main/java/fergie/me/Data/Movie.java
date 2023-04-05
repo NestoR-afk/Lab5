@@ -1,5 +1,6 @@
 package fergie.me.Data;
 
+import javax.management.InvalidAttributeValueException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -14,10 +15,15 @@ public class Movie {
     private MovieGenre genre; //Поле не может быть null
     private MpaaRating mpaaRating; //Поле может быть null
     private Person operator; //Поле не может быть null
+    //private long Id;
 
-    public Movie(){}
+    //private static long nextId = 1L;
+
+    public Movie() {
+    }
 
     public Movie(long id, String name, Coordinates coordinates, java.time.LocalDate creationDate, Long oscarsCount, MovieGenre genre, MpaaRating mpaaRating, Person operator) {
+        //setId();
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -27,81 +33,131 @@ public class Movie {
         this.mpaaRating = mpaaRating;
         this.operator = operator;
     }
+
+    //    Set<Long> Id = new HashSet<>();
+//    // @NotNull
+//    public void setId(){
+//        if (nextId == Long.MAX_VALUE){
+//            this.id = 1L;
+//            nextId = 1;
+//        }
+//        else{
+//            this.id = nextId;
+//            nextId += 1;
+//        }
+//        Id.add(this.id);
+//    }
     public Long getId() {
         return id;
     }
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return this.name;
     }
-    public void setName(String name){
-        this.name = name;
+
+    public void setName(String name) throws InvalidAttributeValueException {
+        if (name.equals("") || name == null) {
+            throw new InvalidAttributeValueException("Имя фильма не может быть пустым");
+        } else
+            this.name = name;
     }
-    public Coordinates getCoordinates(){
+
+    public Coordinates getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Coordinates coordinates){
-        this.coordinates = coordinates;
+    public void setCoordinates(Coordinates coordinates) throws InvalidAttributeValueException {
+        if ((coordinates == null))
+            throw new InvalidAttributeValueException("Координаты не могут быть null");
+        else
+            this.coordinates = coordinates;
     }
-    public java.time.LocalDate getCreationDate(){
+
+    public java.time.LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(java.time.LocalDate creationDate){
+    public void setCreationDate(java.time.LocalDate creationDate) {
         this.creationDate = creationDate;
     }
-    public Long getOscarsCount(){
+
+    public Long getOscarsCount() {
         return oscarsCount;
     }
 
-    public void setOscarsCountscarsCount(Long oscarsCount){
+    public void setOscarsCountscarsCount(Long oscarsCount) throws InvalidAttributeValueException {
+        if (oscarsCount == null || oscarsCount == 0)
+            throw new InvalidAttributeValueException("Количество оскаров не может равнять 0 или null");
         this.oscarsCount = oscarsCount;
     }
-    public MovieGenre getGenre(){
+
+    public MovieGenre getGenre() {
         return genre;
     }
 
-    public void setGenre(MovieGenre genre){
+    public void setGenre(MovieGenre genre) throws InvalidAttributeValueException {
+        if (genre == null)
+            throw new InvalidAttributeValueException("Значение поля жанр не может быть null");
         this.genre = genre;
     }
-    public MpaaRating getMpaaRating(){
+
+    public MpaaRating getMpaaRating() {
         return this.mpaaRating;
     }
-    public void setMpaaRating(MpaaRating mpaaRating){
+
+    public void setMpaaRating(MpaaRating mpaaRating) throws InvalidAttributeValueException {
+        if (mpaaRating == null)
+            throw new InvalidAttributeValueException("Значение поля MpaaRating не может быть null");
         this.mpaaRating = mpaaRating;
     }
-    public Person getOperator(){
+
+    public Person getOperator() {
         return this.operator;
     }
-    public void setOperator(Person operator){
+
+    public void setOperator(Person operator) throws InvalidAttributeValueException {
+        if (operator == null)
+            throw new InvalidAttributeValueException("Значение поля operator не может быть null");
         this.operator = operator;
     }
+
     //переопределить equals hashcode и toString для movie
     @Override
-    public String toString(){
+    public String toString() {
         return "Название: " + this.name + " | id: " + this.id + " ";
     }
-    public static Movie createNewMovie(Scanner scanner){
+
+    public static Movie createNewMovie(Scanner scanner) {
         Movie movie = new Movie();
         { //movie: movieGenre, MpaaRating, coordinates
             movie.setCreationDate(LocalDate.from(LocalDateTime.now()));
-
             System.out.println("Введите название фильма:");
-            movie.setName(scanner.nextLine());
+            Checker.Setter checker = () -> {
+                movie.setName(scanner.nextLine());
+            };
+            Checker.checkData(checker);
+
 
             System.out.println("Введите количество оскаров:");
-            movie.setOscarsCountscarsCount(scanner.nextLong());
+            checker = () -> {
+                movie.setOscarsCountscarsCount(scanner.nextLong());
+            };
 
             System.out.println("Выберите из списка MpaaRating и введите его:"
                     + "\\n" + Arrays.toString(MpaaRating.values()));
-            movie.setMpaaRating(MpaaRating.valueOf(scanner.nextLine()));
+            checker = () -> {
+                movie.setMpaaRating(MpaaRating.valueOf(scanner.nextLine()));
+            };
 
             System.out.println("Выберите жанр из списка: ");
             System.out.println(Arrays.toString(Country.values()));
-            movie.setGenre(MovieGenre.valueOf(scanner.nextLine()));
+            checker = () -> {
+                movie.setGenre(MovieGenre.valueOf(scanner.nextLine()));
+            };
             //coordinates
             {
                 Coordinates coordinates = new Coordinates();
@@ -109,22 +165,41 @@ public class Movie {
                 int x = scanner.nextInt();
                 float y = scanner.nextFloat();
                 coordinates.setX(x);
-                coordinates.setY(y);
-                movie.setCoordinates(coordinates);
+                checker = () -> {
+                    coordinates.setY(y);
+                };
+                checker = () -> {
+                    movie.setCoordinates(coordinates);
+                };
+                Checker.checkData(checker);
+
+
             }
 
             { //person
                 Person operator = new Person();
                 System.out.println("Введите имя режиссера:");
-                operator.setName(scanner.nextLine());
+                checker = () -> {
+                    operator.setName(scanner.nextLine());
+                };
                 //color
                 System.out.println("Выберите цвет глаз режиссера из предложенных и введите его: ");
                 System.out.println(Arrays.toString(Color.values()));
-                operator.setEyeColor(Color.valueOf(scanner.nextLine()));
+                checker = () -> {
+                    operator.setEyeColor(Color.valueOf(scanner.nextLine()));
+                };
                 //country
                 System.out.println("Введите национальность оператора: ");
                 System.out.println(Arrays.toString(Country.values()));
-                operator.setNationality(Country.valueOf(scanner.nextLine()));
+                checker = () -> {
+                    operator.setNationality(Country.valueOf(scanner.nextLine()));
+                };
+                //height
+                System.out.println("Введите рост режиссера:");
+                checker = () -> {
+                    operator.setHeight(scanner.nextLong());
+                };
+
 
                 { //location + coordinates
                     Location location = new Location();
@@ -132,10 +207,16 @@ public class Movie {
                     location.setX(scanner.nextFloat());
                     location.setY(scanner.nextFloat());
                     location.setZ(scanner.nextLong());
-                    location.setName(scanner.nextLine());
-                    operator.setLocation(location);
+                    checker = () -> {
+                        location.setName(scanner.nextLine());
+                    };
+                    checker = () -> {
+                        operator.setLocation(location);
+                    };
                 }
-                movie.setOperator(operator);
+                checker = () -> {
+                    movie.setOperator(operator);
+                };
             }
         }
         return movie;

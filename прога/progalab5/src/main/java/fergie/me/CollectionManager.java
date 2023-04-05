@@ -1,15 +1,16 @@
 package fergie.me;
 
-import fergie.me.Commands.Command;
 import fergie.me.Data.Movie;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.Scanner;
 
 public class CollectionManager {
     private final ArrayDeque<Movie> arrayDeque;
     private LocalDate initializationDate;
-    private long current_id = 0;
+    private long current_id = 1;
     private long currency = 0;
     String className;
     Scanner scanner;
@@ -17,12 +18,10 @@ public class CollectionManager {
     public CollectionManager() {
         initializationDate = LocalDate.now();
         arrayDeque = new ArrayDeque();
-        arrayDeque.pop();
+        arrayDeque.pop(); //???
         className = arrayDeque.getClass().getName();
-        currency = 0;
+        currency = arrayDeque.size();
     }
-
-
 
     public void addAll(Collection<Movie> collection) {
         for(Movie movie: collection) {
@@ -63,7 +62,7 @@ public class CollectionManager {
         long id = scanner.nextLong();
         int count = 0;
         Movie del = null;
-        for (Movie currentMovie : this.arrayDeque){
+        for (Movie currentMovie : this.arrayDeque) {
             if (count == id) {
                 del = currentMovie;
                 //currentMovie = null;
@@ -71,22 +70,34 @@ public class CollectionManager {
             }
             count++;
         }
-            this.arrayDeque.remove(del);
+        this.arrayDeque.remove(del);
     }
-    public int SumOfOscarsCount(){
+
+    public int SumOfOscarsCount() {
         int oscars = 0;
-        for (Movie movie : this.arrayDeque){
+        for (Movie movie : this.arrayDeque) {
             oscars += movie.getOscarsCount();
         }
         return oscars;
     }
+
+    public void show() {
+        for (Movie movie : arrayDeque) {
+            System.out.print(" " + movie.toString() + ", ");
+        }
+    }
+
     // создать новую коллекцию без этого элемента
     public LocalDate getInitializationDate() {
         return initializationDate;
     }
+
     public String getClassName() {
         return this.className;
     }
-    public Long getCurrency(){ return this.currency;}
+
+    public Long getCurrency() {
+        return this.currency;
+    }
 
 }

@@ -3,7 +3,7 @@ package fergie.me.Commands;
 
 import fergie.me.CollectionManager;
 
-public class UpdateId extends CollectionCommand{
+public class UpdateId extends CollectionCommand implements Command{
     String description = "update id {element} : обновить значение элемента коллекции, id которого равен заданному";
 
     public UpdateId(CollectionManager collectionManager) {
