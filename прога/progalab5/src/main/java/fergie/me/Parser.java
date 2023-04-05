@@ -5,6 +5,7 @@ import fergie.me.Data.Country;
 import fergie.me.Data.Movie;
 import fergie.me.Data.MovieGenre;
 
+import javax.management.InvalidAttributeValueException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class Parser {
     private Scanner scanner;
     private String field = "<(\\w+)>(.+)</\\w+>";
     private Pattern pattern = Pattern.compile(field);
-
-    public List<Movie> readFromFile(String fileName) throws FileNotFoundException {
+                                                                    //throws invalidAttributeValueExcep?
+    public List<Movie> readFromFile(String fileName) throws FileNotFoundException, InvalidAttributeValueException {
         List<Movie> movies = new ArrayList<>();
         scanner = new Scanner(new File("src\\main\\java\\fergie\\me\\" + fileName));
 
@@ -60,7 +61,7 @@ public class Parser {
         return movies;
     }
 
-    private Coordinates readCoordinates() {
+    private Coordinates readCoordinates() throws InvalidAttributeValueException{ //try catch там, где выз. парсер
         Coordinates coordinates = new Coordinates();
         String s;
         while((s = scanner.nextLine()) != "</Coordinates>") {
@@ -71,7 +72,7 @@ public class Parser {
             if (fieldName.equals("x")) {
                 coordinates.setX(Double.parseDouble(fieldValue));
             } else if(fieldName.equals("y")) {
-                coordinates.setY(Float.parseFloat(fieldValue));
+                coordinates.setY(Float.parseFloat(fieldValue));;
             }
         }
 

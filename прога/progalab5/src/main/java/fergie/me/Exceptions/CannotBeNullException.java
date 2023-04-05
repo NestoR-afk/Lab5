@@ -1,6 +1,6 @@
 package fergie.me.Exceptions;
 
-public class CannotBeNullException extends Throwable {
+public class CannotBeNullException extends RuntimeException {
     public CannotBeNullException(String s){}
 
     @Override

@@ -2,6 +2,7 @@ package fergie.me.Data;
 
 import fergie.me.Exceptions.CannotBeNullException;
 
+import javax.management.InvalidAttributeValueException;
 import java.util.Objects;
 
 public class Location {
@@ -13,19 +14,19 @@ public class Location {
     public float getX(){
         return x;
     }
-    public void setX(){
+    public void setX(float x){
         this.x = x;
     }
     public float getY(){
         return y;
     }
-    public void setY(){
+    public void setY(float y){
         this.y = y;
     }
     public long getZ(){
         return z;
     }
-    public void setZ(){
+    public void setZ(long z){
         this.z = z;
     }
 
@@ -33,15 +34,10 @@ public class Location {
         return name;
     }
 
-    public  void setName(String name){
-        try {
-            this.name = name;
-            if (name == null)
-                throw new CannotBeNullException("Название локации не может отсутствовать.");
-        }
-        catch(CannotBeNullException o){
-            o.toString();
-        }
+    public  void setName(String name) throws InvalidAttributeValueException{
+        if (name == null || name.length() > 870)
+            throw new InvalidAttributeValueException("Название локации не может отсутствовать.");
+        this.name = name;
     }
 
     @Override

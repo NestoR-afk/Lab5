@@ -9,11 +9,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         CollectionManager collectionManager = new CollectionManager();
-        CommandManager commandManager = new CommandManager(collectionManager);
+        CommandManager commandManager = new CommandManager(collectionManager, scanner);
         Parser parser = new Parser();
 
-        Scanner scanner = new Scanner(System.in);
+
+
         String fileName = System.getenv("file");
         try {
             List<Movie> movies = parser.readFromFile(fileName);
