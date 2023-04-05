@@ -1,6 +1,7 @@
 package fergie.me.Commands;
 
 import fergie.me.CollectionManager;
+import fergie.me.Data.Movie;
 
 public class AddIfMin extends CollectionCommand implements Command {
     String description = "add_if_min {element}: добавить новый элемент в коллекцию, если его значение меньше, " +
@@ -10,7 +11,10 @@ public class AddIfMin extends CollectionCommand implements Command {
         super(collectionManager);
     }
 
-    public void execute(){};
+    public void execute(){
+        Movie movie = Movie.createNewMovie(scanner);
+        co
+    };
     public String getDescription(){
         return description;
     };

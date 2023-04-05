@@ -4,9 +4,10 @@ import javax.management.InvalidAttributeValueException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -21,6 +22,8 @@ public class Movie {
 
     public Movie() {
     }
+
+
 
     public Movie(long id, String name, Coordinates coordinates, java.time.LocalDate creationDate, Long oscarsCount, MovieGenre genre, MpaaRating mpaaRating, Person operator) {
         //setId();
@@ -60,10 +63,11 @@ public class Movie {
     }
 
     public void setName(String name) throws InvalidAttributeValueException {
-        if (name.equals("") || name == null) {
+        if (name == null || name.equals("")) {
             throw new InvalidAttributeValueException("Имя фильма не может быть пустым");
-        } else
+        } else {
             this.name = name;
+        }
     }
 
     public Coordinates getCoordinates() {
@@ -89,7 +93,11 @@ public class Movie {
         return oscarsCount;
     }
 
-    public void setOscarsCountscarsCount(Long oscarsCount) throws InvalidAttributeValueException {
+    public void setOscarsCount(String oscarsCount) throws InvalidAttributeValueException {
+        setOscarsCount(Long.parseLong(oscarsCount));
+    }
+
+    public void setOscarsCount(Long oscarsCount) throws InvalidAttributeValueException {
         if (oscarsCount == null || oscarsCount == 0)
             throw new InvalidAttributeValueException("Количество оскаров не может равнять 0 или null");
         this.oscarsCount = oscarsCount;
@@ -132,32 +140,42 @@ public class Movie {
     }
 
     public static Movie createNewMovie(Scanner scanner) {
+        System.out.println("Введите параметры.");
         Movie movie = new Movie();
-        { //movie: movieGenre, MpaaRating, coordinates
+
+        { // movie: movieGenre, MpaaRating, coordinates
             movie.setCreationDate(LocalDate.from(LocalDateTime.now()));
             System.out.println("Введите название фильма:");
             Checker.Setter checker = () -> {
-                movie.setName(scanner.nextLine());
+                        movie.setName(scanner.nextLine());
             };
             Checker.checkData(checker);
 
 
             System.out.println("Введите количество оскаров:");
+
             checker = () -> {
-                movie.setOscarsCountscarsCount(scanner.nextLong());
+                movie.setOscarsCount(scanner.nextLine());
             };
+            Checker.checkData(checker);
+
+
 
             System.out.println("Выберите из списка MpaaRating и введите его:"
                     + "\\n" + Arrays.toString(MpaaRating.values()));
             checker = () -> {
                 movie.setMpaaRating(MpaaRating.valueOf(scanner.nextLine()));
             };
+            Checker.checkData(checker);
+
 
             System.out.println("Выберите жанр из списка: ");
-            System.out.println(Arrays.toString(Country.values()));
+            System.out.println(Arrays.toString(MovieGenre.values()));
             checker = () -> {
                 movie.setGenre(MovieGenre.valueOf(scanner.nextLine()));
             };
+            Checker.checkData(checker);
+
             //coordinates
             {
                 Coordinates coordinates = new Coordinates();
@@ -168,6 +186,8 @@ public class Movie {
                 checker = () -> {
                     coordinates.setY(y);
                 };
+                Checker.checkData(checker);
+
                 checker = () -> {
                     movie.setCoordinates(coordinates);
                 };
@@ -182,24 +202,30 @@ public class Movie {
                 checker = () -> {
                     operator.setName(scanner.nextLine());
                 };
+                Checker.checkData(checker);
+
                 //color
                 System.out.println("Выберите цвет глаз режиссера из предложенных и введите его: ");
                 System.out.println(Arrays.toString(Color.values()));
                 checker = () -> {
                     operator.setEyeColor(Color.valueOf(scanner.nextLine()));
                 };
+                Checker.checkData(checker);
+
                 //country
                 System.out.println("Введите национальность оператора: ");
                 System.out.println(Arrays.toString(Country.values()));
                 checker = () -> {
                     operator.setNationality(Country.valueOf(scanner.nextLine()));
                 };
+                Checker.checkData(checker);
+
                 //height
                 System.out.println("Введите рост режиссера:");
                 checker = () -> {
                     operator.setHeight(scanner.nextLong());
                 };
-
+                Checker.checkData(checker);
 
                 { //location + coordinates
                     Location location = new Location();
@@ -210,9 +236,13 @@ public class Movie {
                     checker = () -> {
                         location.setName(scanner.nextLine());
                     };
-                    checker = () -> {
-                        operator.setLocation(location);
-                    };
+                    Checker.checkData(checker);
+
+//                    checker = () -> {
+//                        operator.setLocation(location);
+//                    };
+//                    Checker.checkData(checker);
+
                 }
                 checker = () -> {
                     movie.setOperator(operator);
@@ -220,5 +250,10 @@ public class Movie {
             }
         }
         return movie;
+    }
+
+    @Override
+    public int compareTo(Movie movie) {
+        return Objects.equals(this.getOscarsCount(), movie.getOscarsCount()) ? 0 : this.getOscarsCount().compareTo(movie.getOscarsCount());
     }
 }

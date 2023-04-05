@@ -10,6 +10,11 @@ public class Coordinates {
     public double getX(){
         return x;
     }
+
+    public void setX(String s) {
+        setX(Integer.parseInt(s));
+    }
+
     public void setX(double x){
         this.x = x;
     }

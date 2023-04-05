@@ -2,6 +2,7 @@ package fergie.me;
 
 import fergie.me.Commands.Command;
 import fergie.me.Commands.AddElement;
+import fergie.me.Commands.UpdateId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +16,14 @@ public class CommandManager {
 
     public CommandManager(CollectionManager collectionManager, Scanner scanner) {
         this.collectionManager = collectionManager;
+        Command update = new UpdateId(collectionManager, scanner);
+
 
         Command addElement = new AddElement(collectionManager, scanner);
 
+
+        commands.put("update", update);
+        commands.put("add", addElement);
     }
 
 //    public static void help() {

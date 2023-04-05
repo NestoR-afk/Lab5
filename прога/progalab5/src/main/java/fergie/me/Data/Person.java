@@ -19,9 +19,13 @@ public class Person {
             throw new InvalidAttributeValueException("Имя оператора не может быть пустым или null");
         this.name = name;
     }
+
+
     public Long getHeight(){
         return this.height;
     }
+
+
     public void setHeight(Long height) throws InvalidAttributeValueException{
         if (height <= 0 || height == null)
             throw new InvalidAttributeValueException("Рост оператора не может быть меньше 0 и не может быть null");
