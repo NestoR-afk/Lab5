@@ -25,16 +25,20 @@ public class Main {
 //        }
 
         while (true) {
-
-
-            String s = scanner.next();
-            scanner.nextLine();
+            String s = scanner.nextLine();
+//            scanner.nextLine();
+            String[] argssss = s.split("\s+");
 
             if (s.equals("exit")) {
                 break;
             }
-
-            commandManager.commands.get(s).execute();
+            if (argssss.length == 2)
+                commandManager.commands.get(argssss[0]).execute(argssss[1]);
+            else if (argssss.length == 1){
+                commandManager.commands.get(argssss[0]).execute("");
+            } else {
+                System.out.println("Неверное кол-во аргументов");
+            }
         }
 
 

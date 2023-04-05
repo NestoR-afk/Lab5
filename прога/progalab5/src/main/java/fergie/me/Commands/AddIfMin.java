@@ -3,7 +3,7 @@ package fergie.me.Commands;
 import fergie.me.CollectionManager;
 import fergie.me.Data.Movie;
 
-public class AddIfMin extends CollectionCommand implements Command {
+public class AddIfMin extends InputCommand implements Command {
     String description = "add_if_min {element}: добавить новый элемент в коллекцию, если его значение меньше, " +
             "чем у наименьшего элемента этой коллекции";
 

@@ -13,7 +13,7 @@ public class AddElement extends InputCommand implements Command {
         super(collectionManager, scanner);
     }
 
-    public void execute() {
+    public void execute(String s) {
 
         this.collectionManager.add(Movie.createNewMovie(this.scanner));
     }

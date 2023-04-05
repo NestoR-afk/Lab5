@@ -13,8 +13,8 @@ public class UpdateId extends InputCommand implements Command{
         super(collectionManager, scanner);
     }
 
-    public void execute(){
-        long id = scanner.nextLong();
+    public void execute(String s){
+        long id = Long.parseLong(s);
 
         if (collectionManager.checkID(id)) {
             Movie movie = Movie.createNewMovie(this.scanner);
