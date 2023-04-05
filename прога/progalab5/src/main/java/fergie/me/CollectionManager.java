@@ -1,23 +1,20 @@
 package fergie.me;
 
-import fergie.me.Commands.Command;
 import fergie.me.Data.Movie;
 
 import java.time.LocalDate;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public class CollectionManager {
-    private final ArrayDeque<Movie> arrayDeque;
+    private final ArrayDeque<Movie> arrayDeque = new ArrayDeque<>();
+
     private LocalDate initializationDate;
     private long current_id = 0;
 
     public CollectionManager() {
         initializationDate = LocalDate.now();
-        arrayDeque = new ArrayDeque();
-        arrayDeque.pop();
+        arrayDeque.remove();
         String className = arrayDeque.getClass().getName();
     }
 
